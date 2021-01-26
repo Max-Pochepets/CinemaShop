@@ -27,7 +27,7 @@ public class MovieDaoImpl implements MovieDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataBindingException("Could not save movie " + movie + " item. ", e);
+            throw new DataProcessException("Could not save movie " + movie + " item. ", e);
         } finally {
             if (session != null) {
                 session.close();
