@@ -6,7 +6,6 @@ import cinema.shop.lib.exception.DataProcessException;
 import cinema.shop.model.Movie;
 import cinema.shop.util.HibernateUtil;
 import java.util.List;
-import javax.xml.bind.DataBindingException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
