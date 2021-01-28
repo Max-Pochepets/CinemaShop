@@ -27,13 +27,14 @@ public class App {
         cinemaHallService.add(cinemaHall);
         cinemaHallService.getAll().forEach(System.out::println);
 
-        MovieSessionService movieSessionService
-                = (MovieSessionService) injector.getInstance(MovieSessionService.class);
+        MovieSession movieSession = new MovieSession();
         LocalDateTime showTime
                 = LocalDateTime.of(2020, 2, 14, 16, 30);
-        MovieSession movieSession = new MovieSession();
         movieSession.setMovie(movie);
+        movieSession.setCinemaHall(cinemaHall);
         movieSession.setShowTime(showTime);
+        MovieSessionService movieSessionService
+                = (MovieSessionService) injector.getInstance(MovieSessionService.class);
         movieSessionService.add(movieSession);
         System.out.println(movieSessionService
                 .findAvailableSessions(movie.getId(), showTime.toLocalDate()));
