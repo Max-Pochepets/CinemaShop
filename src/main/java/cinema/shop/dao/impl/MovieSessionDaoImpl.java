@@ -26,6 +26,9 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             getSessionsByDate.setParameter("movie_id", movieId);
             getSessionsByDate.setParameter("date", DateTimeFormatter.ISO_LOCAL_DATE.format(date));
             return getSessionsByDate.getResultList();
+        } catch (Exception e) {
+            throw new DataProcessException("Could not find movie sessions by movie id "
+                    + movieId + " at " + date + ". ", e);
         }
     }
 
