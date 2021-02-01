@@ -37,10 +37,9 @@ public class UserDaoImpl implements UserDao {
     public Optional<User> findByEmail(String email) {
         User user = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            user = session.createQuery("from User where email=:email", User.class)
+            return session.createQuery("from User where email=:email", User.class)
                     .setParameter("email", email)
-                    .getSingleResult();
-            return Optional.ofNullable(user);
+                    .uniqueResultOptional();
         } catch (Exception e) {
             throw new DataProcessException("Could not find user by email " + email + ". ", e);
         }
