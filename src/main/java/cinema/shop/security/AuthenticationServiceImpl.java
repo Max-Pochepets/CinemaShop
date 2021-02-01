@@ -34,11 +34,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                     + " is already being used. Please choose another.");
         }
         User user = new User();
-        byte[] salt = HashUtil.getSalt();
-        String hashedPassword = HashUtil.hashPassword(password, salt);
         user.setEmail(email);
-        user.setPassword(hashedPassword);
-        user.setSalt(salt);
+        user.setPassword(password);
         userService.add(user);
         return user;
     }
