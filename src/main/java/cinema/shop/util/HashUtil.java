@@ -7,6 +7,8 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 public class HashUtil {
+    public static final String PBK_ALGORITHM = "PBKDF2WithHmacSHA1";
+
     public static byte[] getSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[32];
@@ -18,7 +20,7 @@ public class HashUtil {
         StringBuilder builder = new StringBuilder();
         PBEKeySpec keySpec = new PBEKeySpec(password.toCharArray(), salt, 42587, 128);
         try {
-            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(PBK_ALGORITHM);
             byte[] hashedPassword = keyFactory.generateSecret(keySpec).getEncoded();
             for (byte entry : hashedPassword) {
                 builder.append(entry);
