@@ -1,10 +1,10 @@
 package cinema.shop.service.impl;
 
-import cinema.shop.dao.abstraction.MovieDao;
+import cinema.shop.dao.MovieDao;
 import cinema.shop.lib.Inject;
 import cinema.shop.lib.ServiceImpl;
 import cinema.shop.model.Movie;
-import cinema.shop.service.abstraction.MovieService;
+import cinema.shop.service.MovieService;
 import java.util.List;
 
 @ServiceImpl

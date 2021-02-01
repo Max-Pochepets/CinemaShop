@@ -1,32 +1,31 @@
 package cinema.shop.dao.impl;
 
-import cinema.shop.dao.MovieDao;
+import cinema.shop.dao.CinemaHallDao;
 import cinema.shop.lib.DaoImpl;
 import cinema.shop.lib.exception.DataProcessException;
-import cinema.shop.model.Movie;
+import cinema.shop.model.CinemaHall;
 import cinema.shop.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 @DaoImpl
-public class MovieDaoImpl implements MovieDao {
+public class CinemaHallDaoImpl implements CinemaHallDao {
     @Override
-    public Movie add(Movie movie) {
+    public CinemaHall add(CinemaHall cinemaHall) {
         Transaction transaction = null;
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.persist(movie);
+            session.persist(cinemaHall);
             transaction.commit();
-            return movie;
+            return cinemaHall;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessException("Could not save movie " + movie + " item. ", e);
+            throw new DataProcessException("Could not add cinema hall " + cinemaHall + ". ", e);
         } finally {
             if (session != null) {
                 session.close();
@@ -35,12 +34,11 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public List<Movie> getAll() {
+    public List<CinemaHall> getAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<Movie> getAllMoviesQuery = session.createQuery("from Movie", Movie.class);
-            return getAllMoviesQuery.getResultList();
+            return session.createQuery("from CinemaHall", CinemaHall.class).getResultList();
         } catch (Exception e) {
-            throw new DataProcessException("Could not get a list of movies. ", e);
+            throw new DataProcessException("Could not get a list of cinema halls from DB. ", e);
         }
     }
 }
