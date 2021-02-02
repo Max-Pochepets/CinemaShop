@@ -42,7 +42,7 @@ public class App {
 
         AuthenticationService authenticationService
                 = (AuthenticationService) injector.getInstance(AuthenticationService.class);
-            authenticationService.register("maksym.pochepets@gmail.com", "1234");
+        authenticationService.register("maksym.pochepets@gmail.com", "1234");
         try {
             System.out.println("After login: "
                     + authenticationService.login("maksym.pochepets@gmail.com", "1234"));
