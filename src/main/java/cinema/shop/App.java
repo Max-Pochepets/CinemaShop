@@ -1,9 +1,11 @@
 package cinema.shop;
 
 import cinema.shop.lib.Injector;
+import cinema.shop.lib.exception.AuthenticationException;
 import cinema.shop.model.CinemaHall;
 import cinema.shop.model.Movie;
 import cinema.shop.model.MovieSession;
+import cinema.shop.security.AuthenticationService;
 import cinema.shop.service.CinemaHallService;
 import cinema.shop.service.MovieService;
 import cinema.shop.service.MovieSessionService;
@@ -37,5 +39,17 @@ public class App {
         movieSessionService.add(movieSession);
         System.out.println(movieSessionService
                 .findAvailableSessions(movie.getId(), showTime.toLocalDate()));
+
+        AuthenticationService authenticationService
+                = (AuthenticationService) injector.getInstance(AuthenticationService.class);
+        authenticationService.register("maksym.pochepets@gmail.com", "1234");
+        try {
+            System.out.println("After login: "
+                    + authenticationService.login("maksym.pochepets@gmail.com", "1234"));
+            System.out.println("After login: "
+                    + authenticationService.login("maksym.pochepets@gmail.com", "12345"));
+        } catch (AuthenticationException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
