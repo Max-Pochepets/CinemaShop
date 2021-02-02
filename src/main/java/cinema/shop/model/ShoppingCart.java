@@ -9,10 +9,9 @@ public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     private List<Ticket> tickets;
     @OneToOne
-    @MapsId(value = "id")
     private User user;
 
     public Long getId() {

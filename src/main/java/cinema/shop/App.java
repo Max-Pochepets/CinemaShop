@@ -6,10 +6,13 @@ import cinema.shop.lib.exception.RegistrationException;
 import cinema.shop.model.CinemaHall;
 import cinema.shop.model.Movie;
 import cinema.shop.model.MovieSession;
+import cinema.shop.model.User;
 import cinema.shop.security.AuthenticationService;
 import cinema.shop.service.CinemaHallService;
 import cinema.shop.service.MovieService;
 import cinema.shop.service.MovieSessionService;
+import cinema.shop.service.ShoppingCartService;
+
 import java.time.LocalDateTime;
 
 public class App {
@@ -43,8 +46,9 @@ public class App {
 
         AuthenticationService authenticationService
                 = (AuthenticationService) injector.getInstance(AuthenticationService.class);
+        User user = null;
         try {
-            authenticationService.register("maksym.pochepets@gmail.com", "1234");
+            user = authenticationService.register("maksym.pochepets@gmail.com", "1234");
             authenticationService.register("maksym.pochepets@gmail.com", "1234");
         } catch (RegistrationException e) {
             System.out.println(e.getMessage());
@@ -58,5 +62,12 @@ public class App {
         } catch (AuthenticationException e) {
             System.out.println(e.getMessage());
         }
+
+        ShoppingCartService shoppingCartService
+                = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
+        shoppingCartService.addSession(movieSession, user);
+        System.out.println(shoppingCartService.getByUser(user));
+        shoppingCartService.clear(shoppingCartService.getByUser(user));
+        System.out.println(shoppingCartService.getByUser(user));
     }
 }
