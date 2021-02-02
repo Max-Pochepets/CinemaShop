@@ -18,14 +18,15 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.persist(shoppingCart);
+            session.merge(shoppingCart);
             transaction.commit();
             return shoppingCart;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessException("Could not save shopping cart " + shoppingCart + " item. ", e);
+            throw new DataProcessException("Could not save shopping cart "
+                    + shoppingCart + " item. ", e);
         } finally {
             if (session != null) {
                 session.close();
@@ -36,13 +37,14 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     @Override
     public ShoppingCart getByUser(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from ShoppingCart sc " +
-                    "left join fetch sc.tickets " +
-                    "where sc.user = :user", ShoppingCart.class)
+            return session.createQuery("from ShoppingCart sc "
+                    + "left join fetch sc.tickets "
+                    + "where sc.user = :user", ShoppingCart.class)
                     .setParameter("user", user)
                     .getSingleResult();
         } catch (Exception e) {
-            throw new DataProcessException("Could not find shopping cart by user " + user + ". ", e);
+            throw new DataProcessException("Could not find shopping cart by user "
+                    + user + ". ", e);
         }
     }
 
