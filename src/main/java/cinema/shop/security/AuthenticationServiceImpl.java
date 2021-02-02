@@ -3,6 +3,7 @@ package cinema.shop.security;
 import cinema.shop.lib.Inject;
 import cinema.shop.lib.ServiceImpl;
 import cinema.shop.lib.exception.AuthenticationException;
+import cinema.shop.lib.exception.RegistrationException;
 import cinema.shop.model.User;
 import cinema.shop.service.UserService;
 import cinema.shop.util.HashUtil;
@@ -28,9 +29,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public User register(String email, String password) throws AuthenticationException {
+    public User register(String email, String password) throws RegistrationException {
         if (userService.findByEmail(email).isPresent()) {
-            throw new AuthenticationException("Email " + email
+            throw new RegistrationException("Email " + email
                     + " is already being used. Please choose another.");
         }
         User user = new User();
