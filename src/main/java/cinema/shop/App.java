@@ -2,7 +2,6 @@ package cinema.shop;
 
 import cinema.shop.lib.Injector;
 import cinema.shop.lib.exception.AuthenticationException;
-import cinema.shop.lib.exception.RegistrationException;
 import cinema.shop.model.CinemaHall;
 import cinema.shop.model.Movie;
 import cinema.shop.model.MovieSession;
@@ -43,13 +42,7 @@ public class App {
 
         AuthenticationService authenticationService
                 = (AuthenticationService) injector.getInstance(AuthenticationService.class);
-        try {
             authenticationService.register("maksym.pochepets@gmail.com", "1234");
-            authenticationService.register("maksym.pochepets@gmail.com", "1234");
-        } catch (RegistrationException e) {
-            System.out.println(e.getMessage());
-        }
-
         try {
             System.out.println("After login: "
                     + authenticationService.login("maksym.pochepets@gmail.com", "1234"));
