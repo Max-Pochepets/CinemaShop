@@ -10,7 +10,9 @@ import cinema.shop.security.AuthenticationService;
 import cinema.shop.service.CinemaHallService;
 import cinema.shop.service.MovieService;
 import cinema.shop.service.MovieSessionService;
+import cinema.shop.service.OrderService;
 import cinema.shop.service.ShoppingCartService;
+
 import java.time.LocalDateTime;
 
 public class App {
@@ -45,6 +47,7 @@ public class App {
         AuthenticationService authenticationService
                 = (AuthenticationService) injector.getInstance(AuthenticationService.class);
         User user = authenticationService.register("maksym.pochepets@gmail.com", "1234");
+        User user1 = authenticationService.register("agreed_note@hotmail.com", "1234");
         try {
             System.out.println("After login: "
                     + authenticationService.login("maksym.pochepets@gmail.com", "1234"));
@@ -60,5 +63,11 @@ public class App {
         System.out.println(shoppingCartService.getByUser(user));
         shoppingCartService.clear(shoppingCartService.getByUser(user));
         System.out.println(shoppingCartService.getByUser(user));
+
+        shoppingCartService.addSession(movieSession, user);
+        OrderService orderService
+                = (OrderService) injector.getInstance(OrderService.class);
+        orderService.completeOrder(shoppingCartService.getByUser(user));
+        System.out.println(orderService.getOrdersHistory(user));
     }
 }
