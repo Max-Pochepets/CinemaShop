@@ -1,11 +1,15 @@
 package cinema.shop;
 
+import cinema.shop.dao.figure.FigureDao;
+import cinema.shop.dao.figure.FigureDaoImpl;
 import cinema.shop.lib.Injector;
 import cinema.shop.lib.exception.AuthenticationException;
 import cinema.shop.model.CinemaHall;
 import cinema.shop.model.Movie;
 import cinema.shop.model.MovieSession;
 import cinema.shop.model.User;
+import cinema.shop.model.figure.Circle;
+import cinema.shop.model.figure.Triangle;
 import cinema.shop.security.AuthenticationService;
 import cinema.shop.service.CinemaHallService;
 import cinema.shop.service.MovieService;
@@ -23,6 +27,9 @@ public class App {
         movie.setTitle("Fast and Furious");
         movieService.add(movie);
         movieService.getAll().forEach(System.out::println);
+        Movie movie1 = new Movie();
+        movie1.setTitle("Desperados");
+        movieService.add(movie1);
 
         CinemaHallService cinemaHallService
                 = (CinemaHallService) injector.getInstance(CinemaHallService.class);
@@ -40,6 +47,12 @@ public class App {
         MovieSessionService movieSessionService
                 = (MovieSessionService) injector.getInstance(MovieSessionService.class);
         movieSessionService.add(movieSession);
+        MovieSession movieSession1 = new MovieSession();
+        LocalDateTime showTime1 = LocalDateTime.of(2020, 2, 14, 18, 30);
+        movieSession1.setMovie(movie1);
+        movieSession1.setCinemaHall(cinemaHall);
+        movieSession1.setShowTime(showTime1);
+        movieSessionService.add(movieSession1);
         System.out.println(movieSessionService
                 .findAvailableSessions(movie.getId(), showTime.toLocalDate()));
 
@@ -64,6 +77,7 @@ public class App {
         System.out.println(shoppingCartService.getByUser(user));
 
         shoppingCartService.addSession(movieSession, user);
+        shoppingCartService.addSession(movieSession1, user);
         OrderService orderService
                 = (OrderService) injector.getInstance(OrderService.class);
         orderService.completeOrder(shoppingCartService.getByUser(user));
