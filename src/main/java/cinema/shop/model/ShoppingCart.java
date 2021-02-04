@@ -2,7 +2,6 @@ package cinema.shop.model;
 
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -18,7 +17,7 @@ public class ShoppingCart {
     private Long id;
     @OneToMany
     private List<Ticket> tickets;
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
     @MapsId
     @JoinColumn(name = "id")
     private User user;
