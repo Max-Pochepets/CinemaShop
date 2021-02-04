@@ -1,15 +1,11 @@
 package cinema.shop;
 
-import cinema.shop.dao.figure.FigureDao;
-import cinema.shop.dao.figure.FigureDaoImpl;
 import cinema.shop.lib.Injector;
 import cinema.shop.lib.exception.AuthenticationException;
 import cinema.shop.model.CinemaHall;
 import cinema.shop.model.Movie;
 import cinema.shop.model.MovieSession;
 import cinema.shop.model.User;
-import cinema.shop.model.figure.Circle;
-import cinema.shop.model.figure.Triangle;
 import cinema.shop.security.AuthenticationService;
 import cinema.shop.service.CinemaHallService;
 import cinema.shop.service.MovieService;
