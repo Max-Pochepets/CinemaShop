@@ -10,6 +10,7 @@ import cinema.shop.security.AuthenticationService;
 import cinema.shop.service.CinemaHallService;
 import cinema.shop.service.MovieService;
 import cinema.shop.service.MovieSessionService;
+import cinema.shop.service.OrderService;
 import cinema.shop.service.ShoppingCartService;
 import java.time.LocalDateTime;
 
@@ -22,6 +23,9 @@ public class App {
         movie.setTitle("Fast and Furious");
         movieService.add(movie);
         movieService.getAll().forEach(System.out::println);
+        Movie movie1 = new Movie();
+        movie1.setTitle("Desperados");
+        movieService.add(movie1);
 
         CinemaHallService cinemaHallService
                 = (CinemaHallService) injector.getInstance(CinemaHallService.class);
@@ -39,12 +43,19 @@ public class App {
         MovieSessionService movieSessionService
                 = (MovieSessionService) injector.getInstance(MovieSessionService.class);
         movieSessionService.add(movieSession);
+        MovieSession movieSession1 = new MovieSession();
+        LocalDateTime showTime1 = LocalDateTime.of(2020, 2, 14, 18, 30);
+        movieSession1.setMovie(movie1);
+        movieSession1.setCinemaHall(cinemaHall);
+        movieSession1.setShowTime(showTime1);
+        movieSessionService.add(movieSession1);
         System.out.println(movieSessionService
                 .findAvailableSessions(movie.getId(), showTime.toLocalDate()));
 
         AuthenticationService authenticationService
                 = (AuthenticationService) injector.getInstance(AuthenticationService.class);
         User user = authenticationService.register("maksym.pochepets@gmail.com", "1234");
+        User user1 = authenticationService.register("agreed_note@hotmail.com", "1234");
         try {
             System.out.println("After login: "
                     + authenticationService.login("maksym.pochepets@gmail.com", "1234"));
@@ -60,5 +71,12 @@ public class App {
         System.out.println(shoppingCartService.getByUser(user));
         shoppingCartService.clear(shoppingCartService.getByUser(user));
         System.out.println(shoppingCartService.getByUser(user));
+
+        shoppingCartService.addSession(movieSession, user);
+        shoppingCartService.addSession(movieSession1, user);
+        OrderService orderService
+                = (OrderService) injector.getInstance(OrderService.class);
+        orderService.completeOrder(shoppingCartService.getByUser(user));
+        System.out.println(orderService.getOrdersHistory(user));
     }
 }
