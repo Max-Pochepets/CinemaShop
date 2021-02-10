@@ -26,6 +26,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User get(Long id) {
+        Optional<User> optionalUser = userDao.get(id);
+        if (optionalUser.isEmpty()) {
+            return null;
+        }
+        return optionalUser.get();
+    }
+
+    @Override
     public Optional<User> findByEmail(String email) {
         return userDao.findByEmail(email);
     }
