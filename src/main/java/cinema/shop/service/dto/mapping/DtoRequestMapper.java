@@ -1,7 +1,5 @@
 package cinema.shop.service.dto.mapping;
 
-public interface DtoMapper<D, C> {
-    D toDto(C object);
-
+public interface DtoRequestMapper<D, C> {
     C fromDto(D dto);
 }

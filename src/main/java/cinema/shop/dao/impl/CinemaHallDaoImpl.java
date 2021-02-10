@@ -4,6 +4,7 @@ import cinema.shop.dao.CinemaHallDao;
 import cinema.shop.exception.DataProcessException;
 import cinema.shop.model.CinemaHall;
 import java.util.List;
+import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -36,6 +37,17 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
             if (session != null) {
                 session.close();
             }
+        }
+    }
+
+    @Override
+    public Optional<CinemaHall> get(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("from CinemaHall where id = :id", CinemaHall.class)
+                    .setParameter("id", id)
+                    .uniqueResultOptional();
+        } catch (Exception e) {
+            throw new DataProcessException("Could not get cinema hall by id " + id + ". ", e);
         }
     }
 
