@@ -4,7 +4,6 @@ import cinema.shop.dao.CinemaHallDao;
 import cinema.shop.model.CinemaHall;
 import cinema.shop.service.CinemaHallService;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,11 +21,8 @@ public class CinemaHallServiceImpl implements CinemaHallService {
 
     @Override
     public CinemaHall get(Long id) {
-        Optional<CinemaHall> optionalCinemaHall = cinemaHallDao.get(id);
-        if (optionalCinemaHall.isEmpty()) {
-            return null;
-        }
-        return optionalCinemaHall.get();
+        return cinemaHallDao.get(id).orElseThrow(()
+                -> new RuntimeException("There is no such cinema hall"));
     }
 
     @Override
