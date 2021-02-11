@@ -5,6 +5,8 @@ import cinema.shop.model.User;
 import cinema.shop.service.UserService;
 import cinema.shop.util.HashUtil;
 import java.util.Optional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,11 +19,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User add(User user) {
-        String password = user.getPassword();
-        byte[] salt = HashUtil.getSalt();
-        String hashedPassword = HashUtil.hashPassword(password, salt);
-        user.setPassword(hashedPassword);
-        user.setSalt(salt);
+        String encodedPassword = getEncoder().encode(user.getPassword());
+        user.setPassword(encodedPassword);
         return userDao.add(user);
     }
 
@@ -34,5 +33,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByEmail(String email) {
         return userDao.findByEmail(email);
+    }
+
+    private PasswordEncoder getEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
