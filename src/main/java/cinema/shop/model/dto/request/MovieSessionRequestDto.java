@@ -1,9 +1,18 @@
 package cinema.shop.model.dto.request;
 
 public class MovieSessionRequestDto {
+    private Long id;
     private Long movieId;
     private String showTime;
     private Long cinemaHallId;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getMovieId() {
         return movieId;
