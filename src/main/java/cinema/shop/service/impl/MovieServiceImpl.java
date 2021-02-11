@@ -21,7 +21,8 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Movie get(Long id) {
-        return movieDao.get(id).orElseThrow(() -> new RuntimeException("There is no such movie with id " + id + "."));
+        return movieDao.get(id).orElseThrow(()
+                -> new RuntimeException("There is no such movie with id " + id + "."));
     }
 
     @Override
