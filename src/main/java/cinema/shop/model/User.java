@@ -18,7 +18,6 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
-    private byte[] salt;
 
     public Long getId() {
         return id;
@@ -44,14 +43,6 @@ public class User {
         this.password = password;
     }
 
-    public byte[] getSalt() {
-        return salt;
-    }
-
-    public void setSalt(byte[] salt) {
-        this.salt = salt;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -63,15 +54,12 @@ public class User {
         User user = (User) o;
         return Objects.equals(id, user.id)
                 && Objects.equals(email, user.email)
-                && Objects.equals(password, user.password)
-                && Arrays.equals(salt, user.salt);
+                && Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, email, password);
-        result = 31 * result + Arrays.hashCode(salt);
-        return result;
+        return Objects.hash(id, email, password);
     }
 
     @Override
@@ -80,7 +68,6 @@ public class User {
                 + "id=" + id
                 + ", email='" + email + '\''
                 + ", password='" + password + '\''
-                + ", salt=" + Arrays.toString(salt)
                 + '}';
     }
 }

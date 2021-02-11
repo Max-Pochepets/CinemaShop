@@ -21,17 +21,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public User login(String email, String password) throws AuthenticationException {
-        Optional<User> userByEmail = userService.findByEmail(email);
-        if (userByEmail.isEmpty()
-                || !hashPassword(password, userByEmail.get().getSalt())
-                    .equals(userByEmail.get().getPassword())) {
-            throw new AuthenticationException("Wrong credentials. Please try again.");
-        }
-        return userByEmail.get();
-    }
-
-    @Override
     public User register(String email, String password) {
         User user = new User();
         user.setEmail(email);
