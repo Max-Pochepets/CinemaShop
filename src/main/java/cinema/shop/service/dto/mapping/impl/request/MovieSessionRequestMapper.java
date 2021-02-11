@@ -31,6 +31,7 @@ public class MovieSessionRequestMapper implements DtoRequestMapper<MovieSessionR
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
+        movieSession.setId(dto.getId());
         movieSession.setMovie(movie);
         movieSession.setShowTime(LocalDateTime.parse(dto.getShowTime(), formatter));
         movieSession.setCinemaHall(cinemaHall);
