@@ -1,8 +1,12 @@
 package cinema.shop.model.dto.request;
 
+import cinema.shop.lib.annotations.ValidEmail;
+
 public class UserRequestDto {
+    @ValidEmail
     private String email;
     private String password;
+    private String repeatPassword;
 
     public String getEmail() {
         return email;
@@ -18,5 +22,13 @@ public class UserRequestDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRepeatPassword() {
+        return repeatPassword;
+    }
+
+    public void setRepeatPassword(String repeatPassword) {
+        this.repeatPassword = repeatPassword;
     }
 }

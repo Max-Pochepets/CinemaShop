@@ -2,7 +2,7 @@ package cinema.shop.security;
 
 import static cinema.shop.util.HashUtil.hashPassword;
 
-import cinema.shop.exception.AuthenticationException;
+import cinema.shop.lib.exception.AuthenticationException;
 import cinema.shop.model.User;
 import cinema.shop.service.ShoppingCartService;
 import cinema.shop.service.UserService;

@@ -1,7 +1,7 @@
 package cinema.shop.dao.impl;
 
 import cinema.shop.dao.MovieDao;
-import cinema.shop.exception.DataProcessException;
+import cinema.shop.lib.exception.DataProcessException;
 import cinema.shop.model.Movie;
 import java.util.List;
 import java.util.Optional;

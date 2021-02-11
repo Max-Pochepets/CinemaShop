@@ -1,6 +1,11 @@
 package cinema.shop.model.dto.request;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public class CinemaHallRequestDto {
+    @NotNull
+    @Min(0)
     private int capacity;
     private String description;
 
