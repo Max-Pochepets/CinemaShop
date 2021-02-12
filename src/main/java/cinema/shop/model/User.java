@@ -1,6 +1,5 @@
 package cinema.shop.model;
 
-import java.util.Arrays;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -9,6 +9,7 @@ import cinema.shop.service.dto.mapping.DtoResponseMapper;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +40,7 @@ public class MovieSessionController {
     }
 
     @PostMapping
-    public void add(@RequestBody MovieSessionRequestDto movieSessionRequestDto) {
+    public void add(@RequestBody @Valid MovieSessionRequestDto movieSessionRequestDto) {
         MovieSession movieSession = requestMapper.fromDto(movieSessionRequestDto);
         movieSessionService.add(movieSession);
     }
@@ -55,13 +56,13 @@ public class MovieSessionController {
     }
 
     @PutMapping
-    public void update(@RequestBody MovieSessionRequestDto movieSessionRequestDto) {
+    public void update(@RequestBody @Valid MovieSessionRequestDto movieSessionRequestDto) {
         MovieSession movieSession = requestMapper.fromDto(movieSessionRequestDto);
         movieSessionService.update(movieSession);
     }
 
     @DeleteMapping
-    public void delete(@RequestBody MovieSessionRequestDto movieSessionRequestDto) {
+    public void delete(@RequestBody @Valid MovieSessionRequestDto movieSessionRequestDto) {
         MovieSession movieSession = requestMapper.fromDto(movieSessionRequestDto);
         movieSessionService.remove(movieSession);
     }

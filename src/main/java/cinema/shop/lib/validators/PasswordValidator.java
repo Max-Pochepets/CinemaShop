@@ -1,9 +1,8 @@
 package cinema.shop.lib.validators;
 
-
 import cinema.shop.lib.annotations.ValidPassword;
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.BeanWrapperImpl;
 
 public class PasswordValidator implements ConstraintValidator<ValidPassword, Object> {
