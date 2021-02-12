@@ -8,6 +8,7 @@ import cinema.shop.service.dto.mapping.DtoRequestMapper;
 import cinema.shop.service.dto.mapping.DtoResponseMapper;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +31,7 @@ public class MovieController {
     }
 
     @PostMapping
-    public void add(@RequestBody MovieRequestDto dto) {
+    public void add(@RequestBody @Valid MovieRequestDto dto) {
         Movie movie = requestMapper.fromDto(dto);
         movieService.add(movie);
     }

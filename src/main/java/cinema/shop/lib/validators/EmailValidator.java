@@ -1,8 +1,8 @@
 package cinema.shop.lib.validators;
 
 import cinema.shop.lib.annotations.ValidEmail;
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 
 public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
     private static final String VALID_EMAIL_REGEX = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:"

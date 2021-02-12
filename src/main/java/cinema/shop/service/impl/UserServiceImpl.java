@@ -3,7 +3,6 @@ package cinema.shop.service.impl;
 import cinema.shop.dao.UserDao;
 import cinema.shop.model.User;
 import cinema.shop.service.UserService;
-import cinema.shop.util.HashUtil;
 import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
