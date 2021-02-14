@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +18,8 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
+    @ManyToOne
+    private Role role;
 
     public Long getId() {
         return id;
@@ -42,6 +45,14 @@ public class User {
         this.password = password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -53,12 +64,13 @@ public class User {
         User user = (User) o;
         return Objects.equals(id, user.id)
                 && Objects.equals(email, user.email)
-                && Objects.equals(password, user.password);
+                && Objects.equals(password, user.password)
+                && role == user.role;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password);
+        return Objects.hash(id, email, password, role);
     }
 
     @Override
@@ -66,7 +78,7 @@ public class User {
         return "User{"
                 + "id=" + id
                 + ", email='" + email + '\''
-                + ", password='" + password + '\''
+                + ", role='" + role + '\''
                 + '}';
     }
 }
