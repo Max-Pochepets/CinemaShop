@@ -10,14 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/movie-sessions")
@@ -54,15 +47,17 @@ public class MovieSessionController {
                 .collect(Collectors.toList());
     }
 
-    @PutMapping
-    public void update(@RequestBody MovieSessionRequestDto movieSessionRequestDto) {
+    @PutMapping("/{id}")
+    public void update(@PathVariable Long id, @RequestBody MovieSessionRequestDto movieSessionRequestDto) {
         MovieSession movieSession = requestMapper.fromDto(movieSessionRequestDto);
+        movieSession.setId(id);
         movieSessionService.update(movieSession);
     }
 
-    @DeleteMapping
-    public void delete(@RequestBody MovieSessionRequestDto movieSessionRequestDto) {
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id, @RequestBody MovieSessionRequestDto movieSessionRequestDto) {
         MovieSession movieSession = requestMapper.fromDto(movieSessionRequestDto);
+        movieSession.setId(id);
         movieSessionService.remove(movieSession);
     }
 }
