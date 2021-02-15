@@ -1,22 +1,28 @@
 package cinema.shop.dao.impl;
 
 import cinema.shop.dao.MovieSessionDao;
-import cinema.shop.lib.DaoImpl;
-import cinema.shop.lib.exception.DataProcessException;
+import cinema.shop.exception.DataProcessException;
 import cinema.shop.model.MovieSession;
-import cinema.shop.util.HibernateUtil;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
-@DaoImpl
+@Repository
 public class MovieSessionDaoImpl implements MovieSessionDao {
+    private final SessionFactory sessionFactory;
+
+    public MovieSessionDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
     public List<MovieSession> findAvailableSessions(Long movieId, LocalDate date) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Query<MovieSession> getSessionsByDate
                     = session.createQuery("select ms from MovieSession ms "
                     + "left join fetch ms.movie "
@@ -37,7 +43,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
         Transaction transaction = null;
         Session session = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.save(movieSession);
             transaction.commit();
@@ -48,6 +54,54 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             }
             throw new DataProcessException("Could not add movie session "
                     + movieSession + ". ", e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    @Override
+    public MovieSession update(MovieSession movieSession) {
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            session.update(movieSession);
+            transaction.commit();
+            return movieSession;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw new DataProcessException("Could not update movie session with id "
+                    + movieSession.getId() + ". ", e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    @Override
+    public boolean remove(Long id) {
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            session.createQuery("delete from MovieSession where id = :id")
+                    .setParameter("id", id)
+                    .executeUpdate();
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw new DataProcessException("Could not remove movie session by id "
+                    + id + ". ", e);
         } finally {
             if (session != null) {
                 session.close();

@@ -1,4 +1,4 @@
-package cinema.shop.lib.exception;
+package cinema.shop.exception;
 
 public class DataProcessException extends RuntimeException {
     public DataProcessException(String message, Throwable cause) {

@@ -1,23 +1,29 @@
 package cinema.shop.dao.impl;
 
 import cinema.shop.dao.OrderDao;
-import cinema.shop.lib.DaoImpl;
-import cinema.shop.lib.exception.DataProcessException;
+import cinema.shop.exception.DataProcessException;
 import cinema.shop.model.Order;
 import cinema.shop.model.User;
-import cinema.shop.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
-@DaoImpl
+@Repository
 public class OrderDaoImpl implements OrderDao {
+    private final SessionFactory sessionFactory;
+
+    public OrderDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
     public Order add(Order order) {
         Transaction transaction = null;
         Session session = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.save(order);
             transaction.commit();
@@ -37,7 +43,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Order> getOrdersHistory(User user) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery("select distinct o from Order o "
                     + "join fetch o.tickets "
                     + "where o.user = :user", Order.class)

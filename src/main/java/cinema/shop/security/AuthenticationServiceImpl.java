@@ -2,20 +2,23 @@ package cinema.shop.security;
 
 import static cinema.shop.util.HashUtil.hashPassword;
 
-import cinema.shop.lib.Inject;
-import cinema.shop.lib.ServiceImpl;
-import cinema.shop.lib.exception.AuthenticationException;
+import cinema.shop.exception.AuthenticationException;
 import cinema.shop.model.User;
 import cinema.shop.service.ShoppingCartService;
 import cinema.shop.service.UserService;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
-@ServiceImpl
+@Service
 public class AuthenticationServiceImpl implements AuthenticationService {
-    @Inject
-    private UserService userService;
-    @Inject
-    private ShoppingCartService shoppingCartService;
+    private final UserService userService;
+    private final ShoppingCartService shoppingCartService;
+
+    public AuthenticationServiceImpl(UserService userService,
+                                     ShoppingCartService shoppingCartService) {
+        this.userService = userService;
+        this.shoppingCartService = shoppingCartService;
+    }
 
     @Override
     public User login(String email, String password) throws AuthenticationException {
