@@ -29,7 +29,7 @@ public class MovieSessionServiceImpl implements MovieSessionService {
     @Override
     public MovieSession get(Long id) {
         return movieSessionDao.get(id).orElseThrow(()
-                -> new NoSuchElementException("Could not get user by id " + id + "."));
+                -> new NoSuchElementException("Could not get movie session by id " + id + "."));
     }
 
     @Override
