@@ -40,6 +40,15 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public Optional<User> get(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return Optional.ofNullable(session.get(User.class, id));
+        } catch (Exception e) {
+            throw new DataProcessException("Could not get user by id " + id + ". ", e);
+        }
+    }
+
+    @Override
     public Optional<User> findByEmail(String email) {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("from User where email=:email", User.class)

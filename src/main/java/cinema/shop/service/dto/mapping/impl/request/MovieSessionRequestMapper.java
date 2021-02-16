@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MovieSessionRequestMapper implements DtoRequestMapper<MovieSessionRequestDto,
                                                             MovieSession> {
+    public static final String PATTERN = "dd.MM.yyyy HH:mm";
     private final CinemaHallService cinemaHallService;
     private final MovieService movieService;
 
@@ -28,13 +29,10 @@ public class MovieSessionRequestMapper implements DtoRequestMapper<MovieSessionR
         MovieSession movieSession = new MovieSession();
         Movie movie = movieService.get(dto.getMovieId());
         CinemaHall cinemaHall = cinemaHallService.get(dto.getCinemaHallId());
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN);
         movieSession.setMovie(movie);
         movieSession.setShowTime(LocalDateTime.parse(dto.getShowTime(), formatter));
         movieSession.setCinemaHall(cinemaHall);
-
         return movieSession;
     }
 }

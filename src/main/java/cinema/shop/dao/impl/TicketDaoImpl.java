@@ -23,7 +23,7 @@ public class TicketDaoImpl implements TicketDao {
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            session.persist(ticket);
+            session.save(ticket);
             transaction.commit();
             return ticket;
         } catch (Exception e) {

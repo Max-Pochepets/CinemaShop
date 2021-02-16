@@ -10,10 +10,8 @@ public class MovieRequestMapper implements DtoRequestMapper<MovieRequestDto, Mov
     @Override
     public Movie fromDto(MovieRequestDto dto) {
         Movie movie = new Movie();
-
         movie.setTitle(dto.getTitle());
         movie.setDescription(dto.getDescription());
-
         return movie;
     }
 }
