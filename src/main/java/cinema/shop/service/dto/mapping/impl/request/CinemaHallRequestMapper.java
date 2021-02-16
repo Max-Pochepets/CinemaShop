@@ -10,10 +10,8 @@ public class CinemaHallRequestMapper implements DtoRequestMapper<CinemaHallReque
     @Override
     public CinemaHall fromDto(CinemaHallRequestDto dto) {
         CinemaHall cinemaHall = new CinemaHall();
-
         cinemaHall.setCapacity(dto.getCapacity());
         cinemaHall.setDescription(dto.getDescription());
-
         return cinemaHall;
     }
 }

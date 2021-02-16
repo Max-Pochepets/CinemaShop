@@ -4,7 +4,7 @@ import cinema.shop.model.User;
 import cinema.shop.model.dto.response.UserResponseDto;
 import cinema.shop.service.UserService;
 import cinema.shop.service.dto.mapping.DtoResponseMapper;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,10 +24,7 @@ public class UserController {
 
     @GetMapping("/by-email")
     public UserResponseDto findByEmail(@RequestParam String email) {
-        Optional<User> optionalUser = userService.findByEmail(email);
-        if (optionalUser.isEmpty()) {
-            return null;
-        }
-        return responseMapper.toDto(optionalUser.get());
+        return responseMapper.toDto(userService.findByEmail(email).orElseThrow(()
+                -> new NoSuchElementException("Could not find user by email " + email + ". ")));
     }
 }

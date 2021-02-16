@@ -10,11 +10,9 @@ public class MovieResponseMapper implements DtoResponseMapper<MovieResponseDto, 
     @Override
     public MovieResponseDto toDto(Movie movie) {
         MovieResponseDto movieResponseDto = new MovieResponseDto();
-
         movieResponseDto.setId(movie.getId());
         movieResponseDto.setTitle(movie.getTitle());
         movieResponseDto.setDescription(movie.getDescription());
-
         return movieResponseDto;
     }
 }

@@ -5,7 +5,7 @@ import cinema.shop.model.MovieSession;
 import cinema.shop.service.MovieSessionService;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,11 +28,8 @@ public class MovieSessionServiceImpl implements MovieSessionService {
 
     @Override
     public MovieSession get(Long id) {
-        Optional<MovieSession> optionalMovieSession = movieSessionDao.get(id);
-        if (optionalMovieSession.isEmpty()) {
-            return null;
-        }
-        return optionalMovieSession.get();
+        return movieSessionDao.get(id).orElseThrow(()
+                -> new NoSuchElementException("Could not get user by id " + id + "."));
     }
 
     @Override
