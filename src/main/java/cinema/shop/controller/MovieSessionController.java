@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,9 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class MovieSessionController {
     private final MovieSessionService movieSessionService;
     private final DtoResponseMapper<MovieSessionResponseDto,
-                    MovieSession> responseMapper;
+            MovieSession> responseMapper;
     private final DtoRequestMapper<MovieSessionRequestDto,
-                    MovieSession> requestMapper;
+            MovieSession> requestMapper;
 
     public MovieSessionController(MovieSessionService movieSessionService,
                                   DtoResponseMapper<MovieSessionResponseDto,
