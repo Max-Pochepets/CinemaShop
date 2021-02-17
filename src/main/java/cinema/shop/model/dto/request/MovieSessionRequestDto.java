@@ -4,7 +4,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 public class MovieSessionRequestDto {
-    private Long id;
     @NotNull
     @Min(1)
     private Long movieId;
@@ -13,14 +12,6 @@ public class MovieSessionRequestDto {
     @NotNull
     @Min(1)
     private Long cinemaHallId;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getMovieId() {
         return movieId;
