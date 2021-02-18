@@ -1,7 +1,7 @@
 package cinema.shop.dao.impl;
 
 import cinema.shop.dao.ShoppingCartDao;
-import cinema.shop.exception.DataProcessException;
+import cinema.shop.lib.exception.DataProcessException;
 import cinema.shop.model.ShoppingCart;
 import cinema.shop.model.User;
 import org.hibernate.Session;

@@ -1,6 +1,9 @@
 package cinema.shop.model.dto.request;
 
+import javax.validation.constraints.Min;
+
 public class CinemaHallRequestDto {
+    @Min(0)
     private int capacity;
     private String description;
 

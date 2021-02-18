@@ -9,6 +9,7 @@ import cinema.shop.service.dto.mapping.DtoResponseMapper;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class MovieSessionController {
     private final MovieSessionService movieSessionService;
     private final DtoResponseMapper<MovieSessionResponseDto,
-                    MovieSession> responseMapper;
+            MovieSession> responseMapper;
     private final DtoRequestMapper<MovieSessionRequestDto,
-                    MovieSession> requestMapper;
+            MovieSession> requestMapper;
 
     public MovieSessionController(MovieSessionService movieSessionService,
                                   DtoResponseMapper<MovieSessionResponseDto,
@@ -40,7 +41,7 @@ public class MovieSessionController {
     }
 
     @PostMapping
-    public void add(@RequestBody MovieSessionRequestDto movieSessionRequestDto) {
+    public void add(@RequestBody @Valid MovieSessionRequestDto movieSessionRequestDto) {
         MovieSession movieSession = requestMapper.fromDto(movieSessionRequestDto);
         movieSessionService.add(movieSession);
     }
@@ -57,7 +58,7 @@ public class MovieSessionController {
 
     @PutMapping("/{id}")
     public void update(@PathVariable Long id,
-                       @RequestBody MovieSessionRequestDto movieSessionRequestDto) {
+                       @RequestBody @Valid MovieSessionRequestDto movieSessionRequestDto) {
         MovieSession movieSession = requestMapper.fromDto(movieSessionRequestDto);
         movieSession.setId(id);
         movieSessionService.update(movieSession);

@@ -1,7 +1,7 @@
 package cinema.shop.dao.impl;
 
 import cinema.shop.dao.TicketDao;
-import cinema.shop.exception.DataProcessException;
+import cinema.shop.lib.exception.DataProcessException;
 import cinema.shop.model.Ticket;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
