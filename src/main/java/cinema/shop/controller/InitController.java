@@ -4,17 +4,22 @@ import cinema.shop.model.Role;
 import cinema.shop.model.User;
 import cinema.shop.security.authentication.AuthenticationService;
 import cinema.shop.service.RoleService;
+import java.util.List;
 import javax.annotation.PostConstruct;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 
 @Controller
 public class InitController {
     private final AuthenticationService authenticationService;
     private final RoleService roleService;
+    private final PasswordEncoder encoder;
 
-    public InitController(AuthenticationService authenticationService, RoleService roleService) {
+    public InitController(AuthenticationService authenticationService, RoleService roleService,
+                          PasswordEncoder encoder) {
         this.authenticationService = authenticationService;
         this.roleService = roleService;
+        this.encoder = encoder;
     }
 
     @PostConstruct
@@ -28,8 +33,8 @@ public class InitController {
 
         User adminUser = new User();
         adminUser.setEmail("admin@hotmail.com");
-        adminUser.setPassword("12345");
-        adminUser.setRole(admin);
+        adminUser.setPassword(encoder.encode("1234"));
+        adminUser.setRoles(List.of(admin, user));
         authenticationService.register(adminUser);
     }
 }

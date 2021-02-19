@@ -2,6 +2,7 @@ package cinema.shop.model.dto.request;
 
 import cinema.shop.lib.annotations.ValidEmail;
 import cinema.shop.lib.annotations.ValidPassword;
+import java.util.List;
 import javax.validation.constraints.NotNull;
 
 @ValidPassword(field = "password", fieldMatch = "repeatPassword")
@@ -11,7 +12,7 @@ public class UserRequestDto {
     private String password;
     private String repeatPassword;
     @NotNull
-    private String role;
+    private List<String> roles;
 
     public String getEmail() {
         return email;
@@ -37,11 +38,11 @@ public class UserRequestDto {
         this.repeatPassword = repeatPassword;
     }
 
-    public String getRole() {
-        return role;
+    public List<String> getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 }
