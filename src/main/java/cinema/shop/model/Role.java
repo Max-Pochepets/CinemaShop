@@ -1,6 +1,7 @@
 package cinema.shop.model;
 
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,15 +17,8 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(value = EnumType.STRING)
+    @Column(unique = true)
     private RoleType roleName;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public RoleType getRoleName() {
         return roleName;
@@ -34,19 +28,17 @@ public class Role {
         this.roleName = roleName;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public enum RoleType {
-        ADMIN("ADMIN"),
-        USER("USER");
-
-        private final String role;
-
-        RoleType(String role) {
-            this.role = role;
-        }
-
-        public String getRole() {
-            return role;
-        }
+        ADMIN,
+        USER;
     }
 
     @Override

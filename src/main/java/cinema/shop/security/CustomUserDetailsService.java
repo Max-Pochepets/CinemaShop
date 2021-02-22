@@ -1,5 +1,7 @@
 package cinema.shop.security;
 
+import static org.springframework.security.core.userdetails.User.withUsername;
+
 import cinema.shop.model.User;
 import cinema.shop.service.UserService;
 import org.springframework.security.core.userdetails.User.UserBuilder;
@@ -20,8 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userService.findByEmail(email).orElseThrow(()
                 -> new UsernameNotFoundException("Could not find user by email " + email + ". "));
-        UserBuilder builder = null;
-        builder = org.springframework.security.core.userdetails.User.withUsername(email);
+        UserBuilder builder = withUsername(email);
         builder.password(user.getPassword());
         builder.roles(user.getRoles().toString());
         return builder.build();

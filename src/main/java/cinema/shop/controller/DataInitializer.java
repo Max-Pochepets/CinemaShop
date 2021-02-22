@@ -7,16 +7,16 @@ import cinema.shop.service.RoleService;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
-@Controller
-public class InitController {
+@Component
+public class DataInitializer {
     private final AuthenticationService authenticationService;
     private final RoleService roleService;
     private final PasswordEncoder encoder;
 
-    public InitController(AuthenticationService authenticationService, RoleService roleService,
-                          PasswordEncoder encoder) {
+    public DataInitializer(AuthenticationService authenticationService, RoleService roleService,
+                           PasswordEncoder encoder) {
         this.authenticationService = authenticationService;
         this.roleService = roleService;
         this.encoder = encoder;
